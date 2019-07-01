@@ -15,21 +15,18 @@ install:
 		chmod 755 $(DESTDIR)$(PREFIX)/$$script; \
 	done
 	mkdir -p $(DESTDIR)$(PREFIX)/share/mutt-wizard
-	chmod 755 $(DESTDIR)$(PREFIX)/share/mutt-wizard
 	for shared in share/*; do \
 		cp -f $$shared $(DESTDIR)$(PREFIX)/share/mutt-wizard; \
-		chmod 644 $(DESTDIR)$(PREFIX)/share/mutt-wizard/$$(basename $(notdir $$shared)); \
 	done
 	mkdir -p $(DESTDIR)$(MANPREFIX)/man1
 	cp -f mw.1 $(DESTDIR)$(MANPREFIX)/man1/mw.1
-	chmod 644 $(DESTDIR)$(MANPREFIX)/man1/mw.1
 	if [ "$(PREFIX)" ]; then \
 		sed -iba 's:/usr/local:$(PREFIX):' $(DESTDIR)$(PREFIX)/share/mutt-wizard/mutt-wizard.muttrc; \
-		rm -f $(DESTDIR)$(PREFIX)/share/mutt-wizard/mutt-wizard.muttrcba; \
 		sed -iba 's:/usr/local:$(PREFIX):' $(DESTDIR)$(PREFIX)/bin/mw; \
-		rm -f $(DESTDIR)$(PREFIX)/bin/mwba; \
 		sed -iba 's:/usr/local:$(PREFIX):' $(DESTDIR)$(MANPREFIX)/man1/mw.1; \
-		rm -f $(DESTDIR)$(MANPREFIX)/man1/mw.1ba; \
+	fi
+	if [ "$(OS)" = "Darwin" ]; then \
+		rm $(DESTDIR)$(PREFIX)/share/mutt-wizard/mutt-wizard.muttrcba; \
 	fi
 
 uninstall:
