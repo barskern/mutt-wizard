@@ -1,6 +1,7 @@
 text/plain; $EDITOR %s ;
 text/html; qutebrowser %s ;
 text/html; w3m -I %{charset} -T text/html; copiousoutput;
+text/calendar; add-ics-event %s ;
 image/*; muttimage %s ; copiousoutput
 video/*; setsid mpv --quiet %s &; copiousoutput
 audio/*; mpv %s ;
